@@ -2,33 +2,164 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>STATE BANK OF INDIA</title>
+    <title>Dashboard – Secure Balance Interface</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            background-color: #1f4e79;
+            width: 220px;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            border-bottom: 1px solid #ffffff33;
+            padding-bottom: 10px;
+        }
+
+        .sidebar a {
+            display: block;
+            margin: 12px 0;
+            color: white;
+            text-decoration: none;
+            font-size: 0.95em;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .main-panel {
+            flex: 1;
+            background-color: #f4f7fc;
+            padding: 30px;
+        }
+
+        .main-panel h2 {
+            color: #1f4e79;
+            margin-bottom: 20px;
+        }
+
+        .balance-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .balance-box h3 {
+            color: #333;
+        }
+
+        .transactions-table {
+            width: 100%;
+            background-color: white;
+            border-collapse: collapse;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .transactions-table th, .transactions-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transactions-table th {
+            background-color: #1f4e79;
+            color: white;
+        }
+
+        .footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+    </style>
 </head>
 <body>
-    <div class="dashboard">
-        <h1>Welcome to State Bank OF India</h1>
-        <div class="balance">
-            <p>Account Balance:</p>
-            <h2>₹1,000,000,000.00</h2>
-        </div>
-        <div class="transactions">
+    <header class="navbar">
+        <div class="logo">Secure Balance Interface</div>
+        <nav class="nav-links">
+            <a href="#">Dashboard</a>
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+        </nav>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h3>Quick Links</h3>
+            <a href="#">Account Summary</a>
+            <a href="#">Fund Transfer</a>
+            <a href="#">Bill Payment</a>
+            <a href="#">Settings</a>
+            <a href="#">Help Desk</a>
+        </aside>
+
+        <main class="main-panel">
+            <h2>Welcome, Valued User</h2>
+
+            <div class="balance-box">
+                <h3>Account Balance: ₹9,99,99,999.99</h3>
+                <p>Account Type: Savings • Last Login: 18-Jun-2025 10:45 AM</p>
+            </div>
+
             <h3>Recent Transactions</h3>
-            <ul>
-                <li>+ ₹500,0000 - Sold Unicorn Tears</li>
-                <li>- ₹1,0000 - Subscription to Alien Netflix</li>
-                <li>+ ₹1,000,000 - Lottery Win (Again!)</li>
-                <li>- ₹500 - Coffee (yes, it’s expensive)</li>
-                <li>+ ₹10,0000 - Refund from the Moon</li>
-            </ul>
-        </div>
-        <button onclick="logout()">Log Out</button>
+            <table class="transactions-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Details</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>18-Jun-2025</td>
+                        <td>UPI Transfer to Pizza Planet</td>
+                        <td>₹1,200.00</td>
+                        <td>–</td>
+                        <td>₹9,99,98,799.99</td>
+                    </tr>
+                    <tr>
+                        <td>17-Jun-2025</td>
+                        <td>Lottery Jackpot Credit</td>
+                        <td>–</td>
+                        <td>₹5,00,00,000.00</td>
+                        <td>₹9,99,99,999.99</td>
+                    </tr>
+                    <tr>
+                        <td>16-Jun-2025</td>
+                        <td>Amazon Order Refund</td>
+                        <td>–</td>
+                        <td>₹1,999.99</td>
+                        <td>₹4,99,99,999.99</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
     </div>
 
-    <script>
-        function logout() {
-            window.location.href = "index.html";
-        }
-    </script>
+    <footer class="footer">
+        <p>© 2025 Secure Balance Interface – This dashboard is fictional. For demonstration only.</p>
+    </footer>
 </body>
 </html>
