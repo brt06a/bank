@@ -1,80 +1,163 @@
-/* Reset some defaults */
+/* Reset and Base */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #dbe9f4;
-    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #e6f0fa;
+    color: #333;
 }
 
+/* Navbar */
 .navbar {
     background-color: #1f4e79;
-    padding: 15px 25px;
     color: white;
-    font-size: 1.2em;
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 25px;
+    align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.login-container, .dashboard {
-    background-color: #ffffff;
-    padding: 30px 40px;
-    margin: 50px auto;
+.logo {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 0.95em;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Layout */
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    gap: 40px;
+}
+
+/* Login Section */
+.login-section {
+    background-color: white;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    flex: 1;
+    min-width: 320px;
     max-width: 400px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px #aaa;
-    text-align: center;
 }
 
-h1 {
+.login-section h2 {
     color: #1f4e79;
+    margin-bottom: 20px;
+    font-size: 1.3em;
 }
 
-input[type="text"], input[type="password"] {
+.login-section label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.login-section input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 10px;
+    margin-bottom: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-button {
+.login-section button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
     background-color: #1f4e79;
     color: white;
-    padding: 12px 20px;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
-    font-weight: bold;
 }
 
-button:hover {
-    background-color: #163b5c;
+.login-section button:hover {
+    background-color: #153a5b;
 }
 
-.balance h2 {
+.login-links {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.login-links a {
     color: #1f4e79;
-    font-size: 2em;
+    text-decoration: none;
 }
 
-.transactions ul {
-    list-style: none;
-    padding: 0;
-    text-align: left;
-}
-
-.transactions li {
-    background-color: #f7f9fa;
-    margin: 6px 0;
-    padding: 10px;
-    border-left: 4px solid #1f4e79;
-    border-radius: 4px;
+.login-links a:hover {
+    text-decoration: underline;
 }
 
 #message {
-    margin-top: 15px;
-    color: #555;
+    margin-top: 12px;
+    color: #d63333;
+}
+
+/* Info Section */
+.info-section {
+    flex: 2;
+    min-width: 300px;
+}
+
+.info-section h3 {
+    color: #1f4e79;
+    margin-bottom: 12px;
+    margin-top: 25px;
+    font-size: 1.1em;
+}
+
+.info-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-section ul li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.info-section ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #1f4e79;
+}
+
+.info-section p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+    background-color: #1f4e79;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 0.85em;
+    margin-top: 40px;
 }
