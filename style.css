@@ -1,20 +1,31 @@
+/* Reset some defaults */
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #dbe9f4;
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
     margin: 0;
+}
+
+.navbar {
+    background-color: #1f4e79;
+    padding: 15px 25px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .login-container, .dashboard {
     background-color: #ffffff;
     padding: 30px 40px;
+    margin: 50px auto;
+    max-width: 400px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px #aaa;
     text-align: center;
-    width: 350px;
 }
 
 h1 {
@@ -44,25 +55,26 @@ button:hover {
     background-color: #163b5c;
 }
 
-#message {
-    margin-top: 15px;
-    color: #555;
-}
-
 .balance h2 {
     color: #1f4e79;
     font-size: 2em;
 }
 
 .transactions ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
+    text-align: left;
 }
 
 .transactions li {
-    background-color: #f0f0f0;
-    margin: 5px 0;
-    padding: 8px;
+    background-color: #f7f9fa;
+    margin: 6px 0;
+    padding: 10px;
+    border-left: 4px solid #1f4e79;
     border-radius: 4px;
-    color: #333;
+}
+
+#message {
+    margin-top: 15px;
+    color: #555;
 }
