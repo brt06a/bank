@@ -6,7 +6,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
 
     // This is fake login logic
     if (user && pass) {
-        document.getElementById("message").innerText = `Welcome back, ${user}! Redirecting to your $1,000,000 account... 💰`;
+        document.getElementById("message").innerText = `Welcome back, ${user}! Redirecting to your ₹1,000,000 account... `;
         setTimeout(() => {
             window.location.href = "dashboard.html"; // Make this page later
         }, 2000);
