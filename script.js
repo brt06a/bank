@@ -1,43 +1,41 @@
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("loginForm");
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
     const message = document.getElementById("message");
 
-    // Reset error on focus
-    [usernameInput, passwordInput].forEach(input => {
-        input.addEventListener("focus", () => {
-            message.innerText = "";
-            input.style.borderColor = "#ccc";
-        });
-    });
-
     form.addEventListener("submit", function (e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent form from submitting normally
 
-        const user = usernameInput.value.trim();
-        const pass = passwordInput.value.trim();
+        const userVal = username.value.trim();
+        const passVal = password.value.trim();
 
-        if (!user || !pass) {
-            message.innerText = "Username and Password are mandatory.";
+        // Reset styles
+        username.style.borderColor = "#ccc";
+        password.style.borderColor = "#ccc";
+        message.innerText = "";
+
+        if (!userVal || !passVal) {
+            message.innerText = "Both fields are required.";
             message.style.color = "#d63333";
-            if (!user) usernameInput.style.borderColor = "#d63333";
-            if (!pass) passwordInput.style.borderColor = "#d63333";
+            if (!userVal) username.style.borderColor = "#d63333";
+            if (!passVal) password.style.borderColor = "#d63333";
             return;
         }
 
-        // Allow only exact credentials
-        if (user === "brt06a" && pass === "8455930482") {
+        if (userVal === "brt06a" && passVal === "8455930482") {
             message.innerText = "Login successful. Redirecting...";
             message.style.color = "green";
+
+            // Use reliable redirect
             setTimeout(() => {
-                window.location.href = "dashboard.html";
+                window.location.assign("dashboard.html");
             }, 1200);
         } else {
-            message.innerText = "Invalid credentials. Access denied.";
+            message.innerText = "Invalid username or password.";
             message.style.color = "#d63333";
-            passwordInput.value = "";
-            passwordInput.focus();
+            password.value = "";
+            password.focus();
         }
     });
 });
