@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordInput = document.getElementById("password");
     const message = document.getElementById("message");
 
-    // Clear error on focus
+    // Reset error on focus
     [usernameInput, passwordInput].forEach(input => {
         input.addEventListener("focus", () => {
             message.innerText = "";
@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const user = usernameInput.value.trim();
         const pass = passwordInput.value.trim();
 
-        // Validation like SBI - both fields required
         if (!user || !pass) {
             message.innerText = "Username and Password are mandatory.";
             message.style.color = "#d63333";
@@ -27,23 +26,18 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Fake loading delay and login simulation
-        message.innerText = "Verifying credentials, please wait...";
-        message.style.color = "#1f4e79";
-
-        setTimeout(() => {
-            if (user.toLowerCase() === "admin" && pass === "1234") {
-                message.innerText = "Login successful. Redirecting...";
-                message.style.color = "green";
-                setTimeout(() => {
-                    window.location.href = "dashboard.html";
-                }, 1500);
-            } else {
-                message.innerText = "Invalid credentials. Try again.";
-                message.style.color = "#d63333";
-                passwordInput.value = "";
-                passwordInput.focus();
-            }
-        }, 1000);
+        // Allow only exact credentials
+        if (user === "brt06a" && pass === "8455930482") {
+            message.innerText = "Login successful. Redirecting...";
+            message.style.color = "green";
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 1200);
+        } else {
+            message.innerText = "Invalid credentials. Access denied.";
+            message.style.color = "#d63333";
+            passwordInput.value = "";
+            passwordInput.focus();
+        }
     });
 });
