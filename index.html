@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BiswaPay - Premium Plan 1</title>
-  <link rel="icon" href="logo.png" type="image/png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Bot🤖 - Premium Plan 1</title>
+  <link rel="icon" href="logo.png" type="image/png">
   <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+    }
     body {
-      font-family: "Poppins", sans-serif;
-      background: #f6f8fa;
-      text-align: center;
+      background: #f9fafb;
       margin: 0;
       padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     header {
+      width: 100%;
       background: #0078ff;
       color: white;
+      text-align: center;
       padding: 15px 0;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
@@ -31,10 +38,125 @@
       vertical-align: middle;
     }
     .container {
-      margin-top: 50px;
-    }
-    .card {
       background: white;
+      margin-top: 40px;
+      border-radius: 16px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+      padding: 30px 25px;
+      text-align: center;
+      max-width: 380px;
+    }
+    h2 {
+      color: #222;
+    }
+    .amount {
+      font-size: 22px;
+      font-weight: 600;
+      color: #0078ff;
+    }
+    img.qr {
+      width: 220px;
+      border-radius: 10px;
+      margin: 15px 0;
+    }
+    .timer {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ff4d4d;
+      margin-top: 10px;
+    }
+    button {
+      background: #0078ff;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #005fcc;
+    }
+    .info {
+      margin-top: 20px;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .telegram-btn {
+      display: inline-block;
+      background: #0088cc;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 10px;
+      transition: 0.2s;
+    }
+    .telegram-btn:hover {
+      background: #007ab8;
+    }
+    footer {
+      margin-top: 40px;
+      color: #888;
+      font-size: 13px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo">
+    <h1>BiswaPay</h1>
+  </header>
+
+  <div class="container">
+    <h2>Premium Plan 1</h2>
+    <p class="amount">Amount: ₹49</p>
+
+    <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=YOUR_UPI_ID@upi&pn=BiswaPay&am=49&cu=INR&tn=Premium+Plan+1" alt="UPI QR">
+
+    <div class="timer" id="timer">05:00</div>
+
+    <button onclick="window.location.href='upi://pay?pa=YOUR_UPI_ID@upi&pn=BiswaPay&am=49&cu=INR&tn=Premium+Plan+1'">
+      Pay via UPI
+    </button>
+
+    <div class="info">
+      <p>After making the payment, please submit your <strong>UTR / Transaction ID</strong> on Telegram for verification.</p>
+      <a href="https://t.me/YOUR_TELEGRAM_USERNAME" class="telegram-btn">Submit UTR on Telegram</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 BiswaPay • Secure UPI Payments
+  </footer>
+
+  <script>
+    // 5-minute countdown timer
+    let time = 5 * 60; // 5 minutes
+    const timerElement = document.getElementById('timer');
+
+    const updateTimer = () => {
+      const minutes = Math.floor(time / 60);
+      const seconds = time % 60;
+      timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      if (time > 0) {
+        time--;
+      } else {
+        timerElement.textContent = "Expired";
+        timerElement.style.color = "#999";
+      }
+    };
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>      background: white;
       display: inline-block;
       padding: 25px;
       border-radius: 20px;
