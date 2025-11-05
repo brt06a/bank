@@ -1,40 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto Bot🤖 - Premium Plan 1</title>
-  <link rel="icon" href="logo.png" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biswa Tech Solutions — Premium Plan 1</title>
+  <link rel="icon" href="logo.png" type="image/png" />
   <style>
-    * {
-      font-family: 'Poppins', sans-serif;
-      box-sizing: border-box;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    * { font-family: 'Poppins', sans-serif; box-sizing: border-box; }
     body {
-      background: #f9fafb;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: #f4f7fb;
+      margin: 0; padding: 0;
+      display: flex; flex-direction: column; align-items: center;
     }
     header {
-      width: 100%;
-      background: #0078ff;
-      color: white;
-      text-align: center;
-      padding: 15px 0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 100%; background: #0078ff; color: white; text-align: center;
+      padding: 16px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    header img {
-      height: 40px;
-      vertical-align: middle;
-      margin-right: 10px;
+    header img { height: 40px; vertical-align: middle; margin-right: 10px; }
+    header h1 { display: inline-block; font-size: 22px; margin: 0; vertical-align: middle; }
+
+    .container {
+      background: white; margin-top: 40px; border-radius: 18px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.1);
+      padding: 30px 25px; text-align: center; max-width: 380px;
+      animation: fadeIn 0.6s ease;
     }
-    header h1 {
-      display: inline-block;
-      font-size: 24px;
-      margin: 0;
+    @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
+
+    h2 { color: #111; margin-bottom: 8px; }
+    .amount { font-size: 22px; font-weight: 600; color: #0078ff; margin: 5px 0 15px 0; }
+
+    img.qr { width: 220px; border-radius: 10px; margin: 10px 0; }
+
+    .timer { font-size: 18px; font-weight: 600; color: #ff4d4d; margin-top: 10px; }
+
+    button {
+      background: #0078ff; color: white; border: none;
+      padding: 12px 28px; border-radius: 8px; cursor: pointer;
+      font-size: 16px; margin-top: 10px; transition: 0.2s;
+    }
+    button:hover { background: #005fcc; }
+
+    .info {
+      margin-top: 20px; color: #555; font-size: 14px; line-height: 1.6;
+    }
+
+    .telegram-btn {
+      display: inline-block; background: #0088cc; color: white;
+      padding: 10px 18px; border-radius: 8px; text-decoration: none;
+      font-weight: 500; margin-top: 10px; transition: 0.2s;
+    }
+    .telegram-btn:hover { background: #007ab8; }
+
+    footer {
+      margin-top: 40px; color: #888; font-size: 13px; text-align: center;
+      padding-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo" />
+    <h1>Biswa Tech Solutions</h1>
+  </header>
+
+  <div class="container">
+    <h2>Premium Plan 1</h2>
+    <p class="amount">Amount: ₹49</p>
+
+    <!-- ✅ Replace YOUR_UPI_ID_HERE@okaxis with your actual valid UPI ID -->
+    <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=YOUR_UPI_ID_HERE@okaxis&pn=Biswa%20Tech%20Solutions&am=49&cu=INR&tn=Premium+Plan+1" alt="UPI QR" />
+
+    <div class="timer" id="timer">05:00</div>
+
+    <button onclick="window.location.href='upi://pay?pa=YOUR_UPI_ID_HERE@okaxis&pn=Biswa%20Tech%20Solutions&am=49&cu=INR&tn=Premium+Plan+1'">
+      Pay via UPI
+    </button>
+
+    <div class="info">
+      <p><strong>Instructions:</strong><br>
+        1️⃣ Scan or click the button above to pay securely via any UPI app.<br>
+        2️⃣ After payment, copy your <strong>UTR / Transaction ID</strong>.<br>
+        3️⃣ Click below to send it to our Telegram team for instant verification.
+      </p>
+      <a href="https://t.me/YOUR_TELEGRAM_USERNAME" class="telegram-btn">Submit UTR on Telegram</a>
+      <p style="margin-top:12px;font-size:13px;color:#888;">
+        ⏳ This payment link will expire automatically when the timer ends.
+      </p>
+    </div>
+  </div>
+
+  <footer>© 2025 Biswa Tech Solutions • Secure UPI Gateway</footer>
+
+  <script>
+    const TIMER_KEY = "upiTimerStart";
+    const TOTAL_TIME = 5 * 60 * 1000; // 5 minutes in ms
+    const timerEl = document.getElementById("timer");
+
+    function formatTime(ms) {
+      const totalSec = Math.floor(ms / 1000);
+      const min = Math.floor(totalSec / 60);
+      const sec = totalSec % 60;
+      return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      let start = localStorage.getItem(TIMER_KEY);
+      if (!start) {
+        start = Date.now();
+        localStorage.setItem(TIMER_KEY, start);
+      }
+
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - start;
+        const remaining = TOTAL_TIME - elapsed;
+        if (remaining > 0) {
+          timerEl.textContent = formatTime(remaining);
+        } else {
+          timerEl.textContent = "Expired";
+          timerEl.style.color = "#999";
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+
+    startTimer();
+  </script>
+</body>
+</html>      margin: 0;
       vertical-align: middle;
     }
     .container {
