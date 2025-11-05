@@ -1,57 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Secure Balance Interface</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BiswaPay - Premium Plan 1</title>
+  <link rel="icon" href="logo.png" type="image/png" />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f6f8fa;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0078ff;
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    header img {
+      height: 40px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    header h1 {
+      display: inline-block;
+      font-size: 24px;
+      margin: 0;
+      vertical-align: middle;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .card {
+      background: white;
+      display: inline-block;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+    img.qr {
+      width: 200px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+    button {
+      background: #0078ff;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #005fcc;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: gray;
+    }
+  </style>
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo">Secure Balance Interface</div>
-        <nav class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Services</a>
-            <a href="#">Support</a>
-            <a href="#">Contact</a>
-        </nav>
-    </header>
+  <header>
+    <img src="logo.png" alt="Logo">
+    <h1>BiswaPay</h1>
+  </header>
 
-    <main class="main-container">
-        <section class="login-section">
-            <h2>Customer Login</h2>
-            <form id="loginForm">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Enter username" required>
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter password" required>
-                <button type="submit">Login</button>
-                <p id="message"></p>
-            </form>
-            <div class="login-links">
-                <a href="#">Forgot Username/Password?</a> |
-                <a href="#">New User? Register</a>
-            </div>
-        </section>
+  <div class="container">
+    <div class="card">
+      <h2>Premium Plan 1</h2>
+      <p>Amount: ₹49</p>
 
-        <section class="info-section">
-            <h3>Important Notices</h3>
-            <ul>
-                <li>⚠️ Do not share your login credentials with anyone.</li>
-                <li>🛡️ Always check the URL before logging in.</li>
-                <li>📢 Scheduled maintenance this Sunday 2:00 AM to 4:00 AM.</li>
-            </ul>
+      <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=YOUR_UPI_ID@upi&pn=BiswaPay&am=49&cu=INR&tn=Premium+Plan+1" alt="UPI QR">
 
-            <h3>Banking Highlights</h3>
-            <p>🚀 Enjoy fast and secure digital banking with SBI... uh, I mean S.B.I. – Secure Balance Interface.</p>
-            <p>🎁 Exclusive cashback offers on utility payments.</p>
-        </section>
-    </main>
+      <br>
+      <button onclick="window.location.href='upi://pay?pa=YOUR_UPI_ID@upi&pn=BiswaPay&am=49&cu=INR&tn=Premium+Plan+1'">
+        Pay via UPI
+      </button>
 
-    <footer class="footer">
-        <p>© 2025 Secure Balance Interface. All rights reserved.</p>
-        <p>This is valid for commercial purposes only.real data is processed.</p>
-    </footer>
+      <p style="margin-top:10px; color:gray;">Scan QR or tap the button to pay securely.</p>
+    </div>
+  </div>
 
-    <script src="script.js"></script>
+  <footer>
+    © 2025 BiswaPay • Secure UPI Payments
+  </footer>
 </body>
 </html>
