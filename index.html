@@ -1,206 +1,113 @@
-<!-- Repository: upi-payment-static-site
-
-Files included below (copy into a Git repo and publish to GitHub Pages):
-- index.html
-- pay.html
-- assets/style.css
-- assets/script.js
-- README.md
-
-IMPORTANT: Replace YOUR_UPI_ID and YOUR_MERCHANT_NAME in pay.html (or use query params) before publishing.
---><!-- ===== index.html ===== --><!doctype html>
-
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pay via UPI — Select an option</title>
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pay — Basic ₹49</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="container">
-    <header>
-      <h1>Buy Premium</h1>
-      <p>Choose one of four premium options. Each button opens a dedicated payment page for that fixed amount.</p>
-    </header><section class="cards">
-  <article class="card">
-    <h2>Bronze</h2>
-    <p>₹49 — Basic</p>
-    <a class="btn" href="pay.html?amount=49&label=Bronze">Pay ₹49</a>
-  </article>
+<div class="container">
+  <div class="card" id="card">
+    <div class="header">
+      <div class="logo">P</div>
+      <div>
+        <h1 id="planName">Basic Plan</h1>
+        <div class="muted">Amount: <span id="amountDisplay">₹49.00</span></div>
+      </div>
+    </div>
 
-  <article class="card">
-    <h2>Silver</h2>
-    <p>₹99 — Standard</p>
-    <a class="btn" href="pay.html?amount=99&label=Silver">Pay ₹99</a>
-  </article>
+    <div class="qr-wrap">
+      <div id="qrcode"></div>
+    </div>
 
-  <article class="card">
-    <h2>Gold</h2>
-    <p>₹199 — Advanced</p>
-    <a class="btn" href="pay.html?amount=199&label=Gold">Pay ₹199</a>
-  </article>
+    <div class="center" style="margin-bottom:8px">
+      <button id="payBtn" class="btn btn-primary">Pay via UPI</button>
+    </div>
 
-  <article class="card">
-    <h2>Platinum</h2>
-    <p>₹499 — Pro</p>
-    <a class="btn" href="pay.html?amount=499&label=Platinum">Pay ₹499</a>
-  </article>
-</section>
+    <div class="info">
+      <div style="margin-bottom:8px">If the automatic open fails, copy the UPI URI or scan the QR code in any UPI app.</div>
 
-<footer>
-  <small>Static UPI deep link + QR — No server, no verification. Implement server-side verification for production.</small>
-</footer>
+      <div class="row">
+        <input id="upiUri" class="copy-input" readonly />
+        <button id="copyBtn" class="small btn">Copy</button>
+      </div>
+    </div>
 
-  </main>  <script>
-    // optional: simple analytics placeholder
-    console.log('UPI payments demo index loaded')
-  </script></body>
-</html><!-- ===== pay.html ===== --><!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Complete UPI Payment</title>
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-  <main class="container">
-    <header>
-      <h1 id="title">Complete payment</h1>
-      <p id="desc">Open your UPI app or scan the QR code.</p>
-    </header><section class="paybox">
-  <div class="summary">
-    <div><strong>Payee:</strong> <span id="payee">YOUR_MERCHANT_NAME</span></div>
-    <div><strong>UPI ID:</strong> <span id="vpa">YOUR_UPI_ID</span></div>
-    <div><strong>Amount:</strong> <span id="amount">₹0</span></div>
-    <div><strong>Note:</strong> <span id="note">Payment for premium</span></div>
+    <div class="footer">
+      Replace <code>YOUR_UPI_ID</code> and <code>YOUR_NAME</code> in the code with your real UPI ID & name before publishing.
+    </div>
   </div>
+</div>
 
-  <div class="qrwrap">
-    <div id="qrcode"></div>
-    <p class="hint">Scan with any UPI app or tap <strong>Open UPI App</strong>.</p>
-  </div>
+<!-- QRCode library (small) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-jrKCvXU/3kA2/6v3i1r9W7F9n3s0m6M3qfKle7pzJ8FJpQ5bS5KqgVh9JYw2q6mGq8Qw9wMZk0MfZkq7b2dMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-  <div class="actions">
-    <a id="openUpi" class="btn big" href="#">Open UPI App</a>
-    <button id="copyUri" class="btn outline">Copy UPI URI</button>
-    <a id="doneBack" class="btn" href="index.html">Back</a>
-  </div>
+<script>
+/*
+  Edit these values BEFORE publishing:
+    upiId: your UPI ID (example: merchant@bank)
+    payeeName: display name
+    amount: numeric amount in INR (no currency symbol)
+    planName: friendly plan name
+*/
+const upiId = 'YOUR_UPI_ID';        // <-- REPLACE
+const payeeName = 'YOUR_NAME';      // <-- REPLACE
+const amount = '49.00';             // plan-specific amount
+const planName = 'Basic Plan';      // plan name
+const note = encodeURIComponent(planName + ' purchase');
 
-  <p class="small">If tapping doesn't open an app, scan the QR using your UPI app's scan feature. This page only builds the UPI deep link and QR for convenience.</p>
-</section>
+document.getElementById('planName').textContent = planName;
+document.getElementById('amountDisplay').textContent = '₹' + parseFloat(amount).toFixed(2);
 
-<footer>
-  <small>Note: This is a static implementation. For automated confirmations, set up server-side verification (IPN/webhooks) and transaction IDs.</small>
-</footer>
+// Build UPI deep link
+// Standard UPI URI: upi://pay?pa=VPA&pn=Name&am=Amount&cu=INR&tn=Note
+const upiUri = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&am=${encodeURIComponent(amount)}&cu=INR&tn=${note}`;
 
-  </main>  <!-- QR library (tiny, CDN) -->  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>  <script src="assets/script.js"></script></body>
-</html>/* ===== assets/style.css ===== */ :root{--bg:#f7f8fb;--card:#fff;--accent:#0b63d6;--muted:#666} *{box-sizing:border-box} body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Arial; margin:0; background:var(--bg); color:#111} .container{max-width:900px;margin:32px auto;padding:20px} header h1{margin:0 0 6px;font-size:28px} header p{margin:0 0 18px;color:var(--muted)} .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px} .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(13,20,30,0.06);text-align:center} .card h2{margin:0 0 6px} .card p{margin:0 0 12px;color:var(--muted)} .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;background:var(--accent);color:#fff} .btn.outline{background:transparent;color:var(--accent);border:1px solid rgba(11,99,214,0.12)} .btn.big{padding:14px 18px;font-size:16px} .paybox{display:grid;grid-template-columns:1fr 260px;gap:20px;align-items:start} .summary{background:var(--card);padding:12px;border-radius:10px} .qrwrap{text-align:center} #qrcode canvas{width:220px;height:220px} .hint{margin:8px 0;color:var(--muted)} .actions{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap} .small{color:var(--muted);font-size:13px} footer{margin-top:20px;color:var(--muted);font-size:13px} @media(max-width:700px){.paybox{grid-template-columns:1fr} #qrcode canvas{width:200px;height:200px}}
+// For Android fallback via intent (some browsers support intent:)
+const intentUri = `intent://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&am=${encodeURIComponent(amount)}&cu=INR&tn=${note}#Intent;scheme=upi;package=;end`;
 
-// ===== assets/script.js ===== (function(){ // Helper: read query params function qp(name, fallback){ const u = new URLSearchParams(location.search); return u.get(name) || fallback; }
+// Populate input
+document.getElementById('upiUri').value = upiUri;
 
-// Defaults - REPLACE these with your real UPI id and merchant name before publishing const DEFAULT_VPA = 'YOUR_UPI_ID'; const DEFAULT_NAME = 'YOUR_MERCHANT_NAME';
+// Generate QR
+new QRCode(document.getElementById("qrcode"), {
+  text: upiUri,
+  width: 220,
+  height: 220,
+  correctLevel: QRCode.CorrectLevel.H
+});
 
-const amount = qp('amount','0'); const label = qp('label','Premium'); const note = qp('note', Payment for ${label});
+// Pay button
+document.getElementById('payBtn').addEventListener('click', () => {
+  // Try to open upi:// link first
+  // Some browsers require user gesture; this is user-initiated
+  window.location.href = upiUri;
 
-// Fill UI document.getElementById('amount').textContent = '₹' + amount; document.getElementById('payee').textContent = DEFAULT_NAME; document.getElementById('vpa').textContent = DEFAULT_VPA; document.getElementById('note').textContent = note; document.getElementById('title').textContent = Pay ₹${amount} — ${label};
+  // As alternative, set a small timeout to attempt intent URI for certain Android browsers
+  // (Not guaranteed; most UPI apps register the upi:// scheme)
+  setTimeout(() => {
+    // fallback to intent form
+    window.location.href = intentUri;
+  }, 800);
+});
 
-// Construct UPI URI according to UPI spec: upi://pay?pa=<VPA>&pn=<name>&am=<amount>&cu=INR&tn=<note> function encode(v){ return encodeURIComponent(v); } const upiUri = upi://pay?pa=${encode(DEFAULT_VPA)}&pn=${encode(DEFAULT_NAME)}&am=${encode(amount)}&cu=INR&tn=${encode(note)};
-
-// Set open link. Some browsers block upi:// on desktop; we'll also provide a fallback info. const openBtn = document.getElementById('openUpi'); openBtn.setAttribute('href', upiUri); openBtn.setAttribute('rel','noopener');
-
-// Try using intent fallback for Android (optional) // Format: intent://pay?pa=...#Intent;scheme=upi;package=org.upi.app;end // We won't set package to force chooser; some browsers support intent: URLs. We'll keep simple upi:// link.
-
-// Render QR code for the same UPI payload (many UPI apps can scan the QR) const qrText = upi://pay?pa=${DEFAULT_VPA}&pn=${DEFAULT_NAME}&am=${amount}&tn=${note}&cu=INR;
-
-// generate QR const qrcodeContainer = document.getElementById('qrcode'); qrcodeContainer.innerHTML = ''; if (window.QRCode && QRCode.toCanvas){ const canvas = document.createElement('canvas'); QRCode.toCanvas(canvas, qrText, {errorCorrectionLevel: 'H', margin:1, scale:6}).then(()=>{ qrcodeContainer.appendChild(canvas); }).catch(err=>{ qrcodeContainer.textContent = 'QR generation failed'; console.error(err); }); } else if (window.QRCode){ // older API try{ new QRCode(qrcodeContainer, {text: qrText, width:220, height:220}); }catch(e){console.error(e); qrcodeContainer.textContent='QR error'; } } else { qrcodeContainer.textContent = 'QR library not loaded.'; }
-
-// Copy UPI URI button document.getElementById('copyUri').addEventListener('click', function(){ navigator.clipboard && navigator.clipboard.writeText(upiUri).then(()=>{ alert('UPI URI copied to clipboard. Paste into your UPI app if needed.'); }).catch(()=>{ prompt('Copy UPI URI (select and copy):', upiUri); }); });
-
-})();
-
-<!-- ===== README.md ===== -->UPI Payment Static Site
-
-This is a tiny static site that provides four dedicated UPI payment links/pages. Each option opens a page that:
-
-shows the payee name and UPI ID
-
-builds a upi://pay?... deep link with amount and note
-
-generates a QR code users can scan
-
-includes a button that attempts to open the UPI app via the upi:// URI
-
-
-How to use
-
-1. Replace YOUR_UPI_ID and YOUR_MERCHANT_NAME in assets/script.js (or in pay.html where shown) with your real UPI VPA and display name.
-
-
-2. Commit the files to a GitHub repository.
-
-
-3. Publish with GitHub Pages (Settings → Pages → Deploy from main branch / (root)).
-
-
-4. The URL for each payment option is:
-
-https://<your-username>.github.io/<repo>/pay.html?amount=49&label=Bronze
-
-...?amount=99&label=Silver
-
-...?amount=199&label=Gold
-
-...?amount=499&label=Platinum
-
-
-
-
-Use these exact links in your Telegram bot as the "Pay via UPI" option. When the user clicks them on mobile, the upi:// URI will open their UPI app (or they can scan the QR).
-
-Important notes & caveats
-
-This is a client-side static approach only. There's no server-side transaction verification. To avoid fraud and to know when a payment has actually arrived, implement server-side verification (e.g., ask users to send payment transaction ID and verify manually or integrate a payment aggregator with webhooks).
-
-Some desktop browsers won't open the upi:// URL; mobile browsers on Android/iOS are more likely to open the installed UPI apps.
-
-Test thoroughly on the devices and UPI apps your users will use.
-
-
-<!-- end of repository files -->
-    button {
-      background: #0078ff; color: white; border: none;
-      padding: 12px 28px; border-radius: 8px; cursor: pointer;
-      font-size: 16px; margin-top: 10px; transition: 0.2s;
-    }
-    button:hover { background: #005fcc; }
-
-    .info {
-      margin-top: 20px; color: #555; font-size: 14px; line-height: 1.6;
-    }
-
-    .telegram-btn {
-      display: inline-block; background: #0088cc; color: white;
-      padding: 10px 18px; border-radius: 8px; text-decoration: none;
-      font-weight: 500; margin-top: 10px; transition: 0.2s;
-    }
-    .telegram-btn:hover { background: #007ab8; }
-
-    footer {
-      margin-top: 40px; color: #888; font-size: 13px; text-align: center;
-      padding-bottom: 20px;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <img src="logo.png" alt="Logo" />
-    <h1>Biswa Tech Solutions</h1>
-  </header>
-
-  <div class="container">
+// Copy button
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(upiUri);
+    alert('UPI link copied to clipboard');
+  } catch (e) {
+    // fallback selection
+    const input = document.getElementById('upiUri');
+    input.select();
+    document.execCommand('copy');
+    alert('Copied');
+  }
+});
+</script>
+</body>
+</html>
     <h2>Premium Plan 1</h2>
     <p class="amount">Amount: ₹49</p>
 
